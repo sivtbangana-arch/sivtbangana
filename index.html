@@ -495,6 +495,10 @@ document.getElementById('enquiry-form').addEventListener('submit', async functio
 (()=>{
  const KEY='sivt_bangana_notices_v1';
  const list=document.getElementById('notice-list'),ticker=document.getElementById('notice-ticker-content'),form=document.getElementById('notice-form'),adminList=document.getElementById('notice-admin-list'),status=document.getElementById('notice-status'),dateInput=document.getElementById('notice-date');
+ // This source file currently contains the scrolling ticker only; the full
+ // notice-board/admin form markup is not present. Skip the demo safely unless
+ // all required elements are added to the page.
+ if(!list||!ticker||!form||!adminList||!status||!dateInput)return;
  const now=new Date(),today=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');
  dateInput.value=today;
  const samples=[
