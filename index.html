@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#082f55">
+<title>SIVT Bangana | Skill Development Institute</title>
+<style>
+:root{--navy:#082f55;--blue:#0876d9;--light:#eaf5ff;--ink:#17324d;--muted:#61758a;--white:#fff;--line:#dceaf6;--shadow:0 12px 32px #082f5510}
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#f7fbff}
+a{text-decoration:none;color:inherit}
+button,input,textarea,select{font:inherit}
+.topbar{background:var(--navy);color:white;padding:10px 5%;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px}
+header{background:white;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px 5%;box-shadow:0 3px 18px #082f5510;position:sticky;top:0;z-index:10}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{width:62px;height:62px;object-fit:contain}
+.brand h1{font-size:22px;margin:0;color:var(--navy)}
+.brand p{margin:5px 0 0;color:var(--muted);font-size:12px}
+nav{display:flex;align-items:center;gap:15px;flex-wrap:wrap;font-size:13px;font-weight:bold}
+nav a:hover{color:var(--blue)}
+.btn{display:inline-block;border:0;border-radius:8px;padding:12px 18px;background:var(--blue);color:white;font-weight:bold;cursor:pointer}
+.btn:hover{background:#055eaf}
+.btn.outline{background:transparent;border:1px solid white;color:white}
+
+/* HERO SLIDER */
+.hero{position:relative;min-height:520px;overflow:hidden;background:var(--navy);color:white;display:flex;align-items:center}
+.hero-slides,.hero-slides:after{position:absolute;inset:0}
+.hero-slides:after{content:"";background:linear-gradient(90deg,#062747ed,#073e6bc9 55%,#073e6b55)}
+.hero-slide{position:absolute;inset:0;background-position:center;background-size:cover;opacity:0;transition:opacity 1s}
+.hero-slide.active{opacity:1}
+.hero-content{position:relative;z-index:2;padding:70px 6%;max-width:780px}
+.eyebrow{text-transform:uppercase;letter-spacing:2px;color:#a9dcff;font-weight:bold;font-size:12px}
+.hero h2{font-size:clamp(38px,5vw,64px);line-height:1.08;margin:16px 0}
+.hero p{font-size:17px;line-height:1.8;max-width:600px;color:#edf7ff}
+.hero .btn{margin:10px 8px 0 0}
+.slider-controls{position:absolute;z-index:3;right:5%;bottom:22px;display:flex;align-items:center;gap:10px}
+.slider-controls button{border:1px solid #ffffffa0;background:#082f5570;color:white;width:38px;height:38px;border-radius:50%;cursor:pointer}
+.slider-dots{display:flex;gap:7px}
+.slider-dots button{width:10px;height:10px;padding:0;border:0;background:#ffffff80}
+.slider-dots button.active{background:white;transform:scale(1.2)}
+
+/* FEATURE CARDS */
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;padding:25px 5%;background:white}
+.feature{padding:20px;border:1px solid var(--line);border-radius:13px;background:#fbfdff}
+.feature .emoji{font-size:28px}
+.feature h3{margin:10px 0 6px;font-size:16px}
+.feature p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}
+
+/* GENERAL SECTIONS */
+section.content{padding:65px 5%}
+.section-head{text-align:center;margin:0 auto 32px;max-width:700px}
+.section-head h2{color:var(--navy);font-size:clamp(27px,3vw,36px);margin:0 0 10px}
+.section-head p{color:var(--muted);line-height:1.7;margin:0}
+
+/* COURSES */
+.course-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.course{background:white;border:1px solid var(--line);border-radius:15px;padding:24px 20px;box-shadow:var(--shadow);transition:.2s}
+.course:hover,.faculty-card:hover{transform:translateY(-4px)}
+.course .icon{font-size:35px}
+.course h3{color:var(--navy);font-size:18px}
+.course p{color:var(--muted);font-size:14px;line-height:1.7;min-height:65px}
+.course a{color:var(--blue);font-weight:bold;font-size:14px}
+
+/* ABOUT */
+.about{background:var(--light);display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.about h2{color:var(--navy);font-size:34px}
+.about p{line-height:1.85;color:#4c647b}
+.about-card{background:white;border-radius:16px;padding:28px;border:1px solid #d4e7f7}
+.about-card li{margin:14px 0;line-height:1.5}
+
+/* FACULTY */
+.faculty-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+.faculty-card{background:white;border:1px solid var(--line);border-radius:15px;overflow:hidden;box-shadow:var(--shadow);transition:.2s}
+.faculty-photo{height:205px;background:linear-gradient(135deg,#eaf5ff,#c8e5ff);display:flex;align-items:center;justify-content:center;overflow:hidden;color:var(--navy);font-size:65px}
+.faculty-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.faculty-info{padding:18px}
+.faculty-info h3{margin:0 0 7px;color:var(--navy);font-size:17px}
+.faculty-info p{font-size:13px;color:var(--muted);line-height:1.6;margin:6px 0}
+.faculty-tag{display:inline-block;background:var(--light);color:#0865b8;padding:6px 9px;border-radius:20px;font-size:11px;font-weight:bold;margin-top:5px}
+
+/* GALLERY */
+.gallery-section{background:#f0f7fd}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.gallery-item{position:relative;border:0;padding:0;height:240px;border-radius:14px;overflow:hidden;background:#dceaf6;cursor:pointer;text-align:left}
+.gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.gallery-item:hover img{transform:scale(1.06)}
+.gallery-caption{position:absolute;left:0;right:0;bottom:0;padding:35px 16px 15px;background:linear-gradient(transparent,#061f36df);color:white;font-weight:bold}
+
+/* ADMISSIONS */
+.admission{background:linear-gradient(120deg,#08345b,#0876d9);color:white;text-align:center;padding:55px 5%}
+.admission h2{font-size:clamp(26px,3vw,36px);margin:0 0 12px}
+.admission p{line-height:1.7}
+.admission .btn{background:white;color:var(--navy);margin-top:12px}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.contact-card,.form-card{background:white;border:1px solid var(--line);border-radius:14px;padding:25px;box-shadow:var(--shadow)}
+.contact-card p{line-height:1.9;color:var(--muted)}
+input,textarea,select{width:100%;padding:12px;margin:7px 0 14px;border:1px solid #cadbea;border-radius:7px;background:white}
+textarea{min-height:100px;resize:vertical}
+label{font-size:14px;font-weight:bold}
+
+/* FOOTER */
+footer{background:#062a4b;color:white;padding:34px 5% 18px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:25px}
+footer p,footer a{color:#d3e4f2;font-size:14px;line-height:1.9}
+.copyright{border-top:1px solid #ffffff30;margin-top:22px;padding-top:15px;font-size:12px;color:#c3d5e4}
+
+/* CHATBOT */
+#chat-toggle{position:fixed;right:22px;bottom:22px;width:60px;height:60px;border:0;border-radius:50%;background:var(--blue);color:white;font-size:26px;box-shadow:0 8px 25px #003f7a55;cursor:pointer;z-index:30}
+#chatbox{position:fixed;right:22px;bottom:94px;width:min(355px,calc(100vw - 30px));height:465px;background:white;border-radius:16px;box-shadow:0 12px 45px #082f5533;overflow:hidden;display:none;flex-direction:column;z-index:30;border:1px solid #d5e5f4}
+.chat-head{background:var(--blue);color:white;padding:16px;display:flex;justify-content:space-between;align-items:center}
+.chat-head strong,.chat-head small{display:block}
+.chat-head small{opacity:.85;margin-top:4px}
+.chat-actions{display:flex;align-items:center}
+#chat-close,#chat-clear{background:transparent;border:0;color:white;cursor:pointer}
+#chat-close{font-size:26px}
+#chat-messages{padding:14px;flex:1;overflow:auto;background:#f6faff}
+.msg{max-width:88%;padding:11px 12px;border-radius:12px;margin:9px 0;font-size:14px;line-height:1.5;white-space:pre-wrap}
+.bot{background:#e5f1fc;color:#163957;border-bottom-left-radius:3px}
+.user{background:var(--blue);color:white;margin-left:auto;border-bottom-right-radius:3px}
+.quick{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.quick button{background:white;color:#075ca8;border:1px solid #8dc6ff;border-radius:20px;padding:7px 9px;font-size:12px;cursor:pointer}
+.chat-input{display:flex;padding:10px;gap:8px;border-top:1px solid #e0eaf3}
+.chat-input input{margin:0;min-width:0}
+.chat-input button{border:0;border-radius:8px;background:var(--blue);color:white;padding:0 14px;cursor:pointer}
+
+/* GALLERY IMAGE PREVIEW */
+.lightbox{position:fixed;inset:0;background:#031626ed;display:none;align-items:center;justify-content:center;padding:25px;z-index:50}
+.lightbox.open{display:flex}
+.lightbox img{max-width:100%;max-height:85vh;object-fit:contain;border-radius:10px}
+.lightbox button{position:absolute;top:18px;right:22px;background:#ffffff20;color:white;border:1px solid #ffffff80;border-radius:50%;width:44px;height:44px;font-size:26px;cursor:pointer}
+
+/* AUTOMATED NOTICE BOARD */
+.notice-ticker{background:#062747;color:#fff;display:flex;align-items:center;overflow:hidden;min-height:48px;border-bottom:3px solid #0876d9}
+.notice-ticker-label{background:#0876d9;padding:14px 18px;font-size:12px;font-weight:bold;white-space:nowrap;z-index:1}
+.notice-ticker-track{overflow:hidden;flex:1;white-space:nowrap}
+.notice-ticker-content{display:inline-flex;align-items:center;gap:38px;padding-left:100%;animation:noticeScroll 32s linear infinite}
+.notice-ticker:hover .notice-ticker-content{animation-play-state:paused}
+.notice-ticker-content a{color:#e5f3ff;font-size:13px}
+.notice-ticker-content a:before{content:"●";color:#55c4ff;margin-right:10px}
+@keyframes noticeScroll{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+.notice-section{padding:55px 5%;background:#f1f7fd}
+.notice-heading{text-align:center;margin-bottom:28px}
+.notice-heading h2{color:#082f55;font-size:clamp(27px,3vw,36px);margin:0 0 10px}
+.notice-heading p{color:#61758a;line-height:1.7}
+.notice-layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(270px,.8fr);gap:22px;max-width:1150px;margin:auto;align-items:start}
+.notice-panel,.notice-admin{background:#fff;border:1px solid #dceaf6;border-radius:15px;padding:23px;box-shadow:0 12px 32px #082f5510}
+.notice-panel-header{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid #e4edf6;padding-bottom:15px;margin-bottom:8px}
+.notice-panel-header h3,.notice-admin h3{margin:0;color:#082f55}
+.notice-live{color:#087443;background:#e7f8ef;padding:7px 10px;border-radius:20px;font-size:11px;font-weight:bold;white-space:nowrap}
+.notice-item{padding:17px 0;border-bottom:1px solid #e9f0f7;display:grid;grid-template-columns:55px minmax(0,1fr);gap:14px}
+.notice-item:last-child{border-bottom:0}
+.notice-date{background:#eaf5ff;border-radius:9px;text-align:center;padding:9px 3px;color:#0876d9;align-self:start}
+.notice-date strong{display:block;font-size:21px}
+.notice-date span{font-size:10px;font-weight:bold;text-transform:uppercase}
+.notice-meta{color:#61758a;font-size:11px;margin-bottom:7px}
+.notice-category{display:inline-block;background:#eaf5ff;color:#0865b8;padding:4px 8px;border-radius:20px;font-size:10px;font-weight:bold;margin-right:6px}
+.notice-item h4{color:#082f55;margin:0 0 7px;font-size:15px}
+.notice-item p{color:#61758a;line-height:1.65;font-size:13px;margin:0;overflow-wrap:anywhere}
+.notice-admin label{display:block;margin-top:14px}
+.notice-admin .btn{margin-top:12px}
+.notice-admin-note{font-size:12px;line-height:1.6;color:#61758a;margin-top:14px}
+.notice-admin-list{margin-top:18px;border-top:1px solid #e4edf6}
+.notice-admin-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid #e9f0f7;font-size:12px;overflow-wrap:anywhere}
+.notice-delete{border:1px solid #f2b8b8;background:#fff3f3;color:#b42318;padding:6px 9px;border-radius:6px;cursor:pointer;flex-shrink:0}
+.notice-empty{text-align:center;color:#61758a;padding:25px 5px;font-size:13px}
+
+@media(max-width:1100px){header{align-items:flex-start;flex-direction:column}nav{gap:14px}.faculty-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:800px){.features,.course-grid{grid-template-columns:repeat(2,1fr)}.gallery-grid{grid-template-columns:repeat(2,1fr)}.hero{min-height:470px}.about{grid-template-columns:1fr}.notice-layout{grid-template-columns:1fr}.notice-section{padding:40px 5%}}
+@media(max-width:600px){.topbar{font-size:11px}header{position:relative}.brand img{width:55px;height:55px}.brand h1{font-size:19px}nav{gap:12px;font-size:12px}.hero{min-height:480px}.hero-content{padding:58px 6%}.hero p{font-size:15px}.features,.course-grid,.faculty-grid,.gallery-grid,.contact-grid,.footer-grid{grid-template-columns:1fr}section.content{padding:45px 5%}.faculty-photo{height:240px}.notice-ticker-label{padding:13px 10px;font-size:10px}.notice-ticker-content{gap:24px}.notice-panel,.notice-admin{padding:16px}}
+@media(prefers-reduced-motion:reduce){.notice-ticker-content{animation:none;padding-left:15px}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span>☎ 9015403094, 9857247005 &nbsp; | &nbsp; ✉ sivtbangana@gmail.com</span>
+  <span>📍 Bangana, Una, Himachal Pradesh</span>
+</div>
+
+<!-- AUTOMATED SCROLLING NOTICE BAR -->
+<div class="notice-ticker" aria-label="Institute announcements">
+  <div class="notice-ticker-label">📢 LATEST NOTICES</div>
+  <div class="notice-ticker-track"><div class="notice-ticker-content" id="notice-ticker-content"><a href="#notice-board">Welcome to SIVT Bangana Notice Board</a><a href="#notice-board">Welcome to SIVT Bangana Notice Board</a><a href="#notice-board">Welcome to SIVT Bangana Notice Board</a></div></div>
+</div>
+
+<header>
+  <a class="brand" href="#home">
+    <img src="file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/sivt%20logo.png" alt="SIVT logo" onerror="this.style.display='none'">
+    <div><h1>SIVT BANGANA</h1><p>Shivam Institute for Vocational Training</p></div>
+  </a>
+  <nav aria-label="Main navigation">
+    <a href="#home">Home</a><a href="#about">About</a><a href="#courses">Courses</a>
+   <a href="#faculty">Faculty</a><a href="#gallery">Gallery</a>
+    <a href="#admissions">Admissions</a><a href="#contact">Contact</a><a class="btn" href="#contact">Enquire Now</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-slides" aria-hidden="true">
+    <div class="hero-slide active" style="background-image:url('file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/fxn.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/main.png')"></div>
+    <div class="hero-slide" style="background-image:url('file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/lab.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/classromm.jpg')"></div>
+  </div>
+  <div class="hero-content">
+    <div class="eyebrow">Learn • Skill • Build Your Future</div>
+    <h2>Welcome to<br>SIVT Bangana</h2>
+    <p>Build practical skills, grow your confidence, and prepare for new opportunities with computer education and vocational training.</p>
+    <a class="btn" href="#courses">Explore Courses →</a>
+    <a class="btn outline" href="#about">About Institute</a>
+  </div>
+  <div class="slider-controls">
+    <button id="prev-slide" type="button" aria-label="Previous image">‹</button>
+    <div class="slider-dots" id="slider-dots"></div>
+    <button id="next-slide" type="button" aria-label="Next image">›</button>
+  </div>
+</section>
+
+<div class="features">
+  <div class="feature"><div class="emoji"></div><h3>Learning First</h3><p>Build knowledge through structured learning and practice.</p></div>
+  <div class="feature"><div class="emoji"></div><h3>Practical Skills</h3><p>Develop useful digital and workplace skills.</p></div>
+  <div class="feature"><div class="emoji"></div><h3>Student Support</h3><p>Get guidance while exploring your learning options.</p></div>
+  <div class="feature"><div class="emoji"></div><h3>Career Readiness</h3><p>Work toward your education and career goals.</p></div>
+</div>
+
+
+
+<section class="content" id="courses">
+  <div class="section-head"><h2>Explore Our Courses</h2><p>Choose a learning path that matches your interests.</p></div>
+  <div class="course-grid">
+    <article class="course"><div class="icon"></div><h3>Managing Director<br>Satish Chand Sharma</h3><p>Message from the Managing Director
+
+<br>**Dear Students, Parents, and Visitors,**
+
+It gives me immense pleasure to welcome you to **SIVT Bangana**, an institute committed to providing quality computer education, technical training, and skill development.
+
+Our mission is to empower students with practical knowledge, digital skills, and professional confidence to succeed in today's competitive world. We offer a range of courses designed to meet the needs of students, job seekers, and aspiring professionals, helping them build a strong foundation for their future careers.
+
+At SIVT Bangana, we believe that education is not just about gaining knowledge; it is about developing skills, creativity, discipline, and a positive attitude. Our focus is on practical learning, individual growth, and preparing students for real-world challenges.
+
+
+
+I invite you to join SIVT Bangana and take a step toward a brighter future. Together, let us build a path to knowledge, skills, and success.
+<br>
+**Best Wishes for Your Future!**
+<br>
+**Managing Director**  <br>
+*SIVT Bangana*  <br>
+*Skill Development Institute*</p><a href="#contact" data-course="Computer Applications">Enquire about course →</a></article>
+    <article class="course"><div class="icon"></div><h3>O-LEVEL</h3><p> About the O Level Course<BR>
+
+The **O Level Course** is a computer education program offered by NIELIT (National Institute of Electronics and Information Technology). It is designed to develop essential computer skills and provide practical knowledge of Information Technology.
+<BR>
+**Course Duration:** [1 YEAR]
+<BR>
+**Eligibility:** [+2]
+<BR>
+**Course Highlights:**<BR>
+- Information Technology Tools and Network Basics<BR>
+- Web Designing and Publishing<BR>
+- Python Programming<BR>
+- Internet of Things (IoT)<BR>
+- Practical Computer Training<BR>
+<BR>
+**Career Opportunities:**
+
+The O Level Course helps students develop technical skills, improve their career prospects, and prepare for opportunities in computer operations, web designing, IT support, and related fields.
+
+**Join the O Level Course to enhance your digital skills and build a strong foundation for a career in Information Technology.**</p><a href="#contact" data-course="Web Designing">Enquire about course →</a></article>
+    <article class="course"><div class="icon"></div><h3>ACMCA</h3><p>About the Advanced Certificate Diploma in Multilingual Computer Application (ACMCA)
+<BR>
+The **Advanced Certificate Diploma in Multilingual Computer Application (ACMCA)** is a computer education program designed to develop practical computer skills and knowledge of multilingual computing. The course helps students learn computer applications, office productivity tools, internet usage, and working with multiple languages on digital platforms.
+<BR>
+**Course Duration:** [1 YEAR]
+<BR>
+**Eligibility:** [10th,+2]
+<BR>
+**Course Highlights:**<BR>
+- Computer Fundamentals and Operating Systems<BR>
+- MS Office and Office Productivity Tools<BR>
+- Internet and Email Applications<BR>
+- Data Entry and Typing Skills<BR>
+- Multilingual Computing and Language Tools<BR>
+- Practical Computer Applications<BR>
+<BR>
+**Career Opportunities:**
+
+After completing the course, students can explore opportunities in data entry, computer operations, office administration, documentation, and multilingual typing.
+
+**Enhance your digital skills and prepare for new career opportunities with the ACMCA course.**</p><a href="#contact" data-course="Tally & Accounting">Enquire about course →</a></article>
+    <article class="course"><div class="icon"></div><h3>Short Term Courses</h3><p>
+
+At **SIVT Bangana**, we offer industry-oriented short-term courses designed to equip students with practical, job-ready digital skills. Our training programs focus on emerging technologies and help students enhance their technical knowledge, creativity, and career opportunities.
+<br>
+**Our Short-Term Courses Include:**<br>
+- Web Designing and Development<br>
+- Python Programming<br>
+- Artificial Intelligence (AI)<br>
+- Cyber Security<br>
+- Computer Fundamentals<br>
+- Digital Skills and IT Applications<br>
+
+Our goal is to empower students with practical experience and the technical skills needed to succeed in today's rapidly evolving digital world.
+
+**Learn New Skills. Explore Technology. Build Your Future with SIVT Bangana!**</p><a href="#contact" data-course="Vocational Skills">Enquire about course →</a></article>
+  </div>
+  <p style="text-align:center;color:var(--muted);font-size:13px;margin-top:22px">Confirm current course availability, fees and eligibility with the institute.</p>
+</section>
+
+<section class="content about" id="about">
+  <div><div class="eyebrow" style="color:var(--blue)">About our institute</div><h2>Skills for a brighter future</h2>
+    <p>SIVT Bangana (Skill Development Institute) was established in November 2022 with a vision to provide quality computer education and skill development.
+Our institute focuses on practical learning and career-oriented training.
+We offer various computer courses to enhance students' technical knowledge and digital skills.
+Our programs include O Level, ACMCA, Web Designing, Python Programming, AI, and Cyber Security.
+We aim to prepare students for employment and future career opportunities.
+We encourage innovation, creativity, and continuous learning in the digital era.
+**SIVT Bangana – Learn Today, Lead Tomorrow!**</p>
+    <p>Practical learning, curiosity, and continuous improvement help students prepare for changing opportunities.</p><a class="btn" href="#contact">Talk to Us</a>
+  </div>
+  <div class="about-card"><h3>Why explore SIVT?</h3><ul><li>Learn about computer and vocational training options</li><li>Ask questions before choosing a course</li><li>Request admission and fee information</li><li>Find institute contact details in one place</li></ul></div>
+</section>
+
+<section class="content" id="faculty">
+  <div class="section-head"><h2>Meet Our Faculty</h2><p>Get to know the people who support your learning journey.</p></div>
+  <div class="faculty-grid">
+    <article class="faculty-card"><div class="faculty-photo"><img src="file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/sir.jpg" alt="Satish Chand Sharma" onerror="this.remove();this.parentElement.textContent='👨‍🏫'"></div><div class="faculty-info"><h3>SATISH CHAND SHARMA</h3><p>Designation: Managing Director</p><span class="faculty-tag">Managing Director</span></div></article>
+    <article class="faculty-card"><div class="faculty-photo"><img src="file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/ankita.jpg" alt="Ankita Thakur" onerror="this.remove();this.parentElement.textContent='👩‍💻'"></div><div class="faculty-info"><h3>ANKITA THAKUR</h3><p>Qualification: B.Tech (CSE)</p><p>Designation: Center Head</p><span class="faculty-tag">Computer Faculty</span></div></article>
+    <article class="faculty-card"><div class="faculty-photo"><img src="file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/sahil%20(2).jpg" alt="Sahil" onerror="this.remove();this.parentElement.textContent='🧑‍🏫'"></div><div class="faculty-info"><h3>Sahil</h3><p>Qualification: MCA</p><p>Designation: Sr. IT Faculty</p><span class="faculty-tag">Computer Faculty</span></div></article>
+    <article class="faculty-card"><div class="faculty-photo"><img src="file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/neha%20(2).jpg" alt="Neha Sharma" onerror="this.remove();this.parentElement.textContent='👩‍🏫'"></div><div class="faculty-info"><h3>Neha Sharma</h3><p>Qualification: BSc, PGDCA</p><p>Designation: Jr. IT Faculty</p><span class="faculty-tag">Tally/Computer Faculty</span></div></article>
+    <article class="faculty-card"><div class="faculty-photo"><img src="file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/ram%20dei.jpg" alt="Ram Dei" onerror="this.remove();this.parentElement.textContent='🎓'"></div><div class="faculty-info"><h3>Ram Dei</h3><p>Qualification: +2</p><p>Designation: Peon</p><span class="faculty-tag">Support Staff</span></div></article>
+  </div>
+</section>
+
+<section class="content gallery-section" id="gallery">
+  <div class="section-head"><h2>Institute Photo Gallery</h2><p>A glimpse of our campus, classrooms, computer lab and student activities.</p></div>
+  <div class="gallery-grid">
+    <button class="gallery-item" type="button" aria-label="Open campus photo"><img src="file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/main%20door.png" alt="Institute campus" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=900&q=80'"><span class="gallery-caption">Institute Campus</span></button>
+    <button class="gallery-item" type="button" aria-label="Open computer lab photo"><img src="file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/lab%20(2).jpg" alt="Computer lab" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80'"><span class="gallery-caption">Computer Lab</span></button>
+    <button class="gallery-item" type="button" aria-label="Open classroom photo"><img src="file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/classromm.jpg" alt="Classroom" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=900&q=80'"><span class="gallery-caption">Classroom</span></button>
+    <button class="gallery-item" type="button" aria-label="Open student learning photo"><img src="file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/STUDENT.jpg" alt="Students learning" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80'"><span class="gallery-caption">Student Learning</span></button>
+    <button class="gallery-item" type="button" aria-label="Open training photo"><img src="file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/lab.jpg" alt="Training session" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=900&q=80'"><span class="gallery-caption">Training Sessions</span></button>
+    <button class="gallery-item" type="button" aria-label="Open activities photo"><img src="file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/project.jpg" alt="Institute activities" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=900&q=80'"><span class="gallery-caption">Events & Activities</span></button>
+	 <button class="gallery-item" type="button" aria-label="Open activities photo"><img src="file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/edu%20tour.jpg" alt="Institute activities" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=900&q=80'"><span class="gallery-caption">Events & Activities</span></button>
+	  <button class="gallery-item" type="button" aria-label="Open activities photo"><img src="file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/hpca.jpg" alt="Institute activities" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=900&q=80'"><span class="gallery-caption">Events & Activities</span></button>
+	   <button class="gallery-item" type="button" aria-label="Open activities photo"><img src="file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/hpac.jpg" alt="Institute activities" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=900&q=80'"><span class="gallery-caption">Events & Activities</span></button>
+	    <button class="gallery-item" type="button" aria-label="Open activities photo"><img src="file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/cls.jpg" alt="Institute activities" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=900&q=80'"><span class="gallery-caption">Events & Activities</span></button>
+		 <button class="gallery-item" type="button" aria-label="Open activities photo"><img src="file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/plantation.jpg" alt="Institute activities" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=900&q=80'"><span class="gallery-caption">Events & Activities</span></button>
+		  <button class="gallery-item" type="button" aria-label="Open activities photo"><img src="file:///C:/Users/WELCOME/Desktop/sivt%20BANGANA%20project%202026/tour.jpg" alt="Institute activities" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=900&q=80'"><span class="gallery-caption">Events & Activities</span></button>
+  </div>
+
+</section>
+
+<section class="admission" id="admissions"><h2>Take the Next Step in Your Learning</h2><p>Ask about current batches, eligibility, required documents and course fees.</p><a class="btn" href="#contact">Send Admission Enquiry →</a></section>
+
+<section class="content" id="contact">
+  <div class="section-head"><h2>Contact & Enquiry</h2><p>Send your question to get started.</p></div>
+  <div class="contact-grid">
+    <div class="contact-card"><h3>Visit or Contact SIVT Bangana</h3><p>📍 Bangana, District Una, Himachal Pradesh<br>☎ 9015403094, 9857247005<br>✉ sivtbangana@gmail.com</p><p><strong>Office hours:</strong><br>SUMMER TIMING: 8:00 AM - 5:45 PM<br><br>WINTER TIMING: 8:30 AM - 5:15 PM</p></div>
+    <form class="form-card" id="enquiry-form">
+      <h3>Admission Enquiry Form</h3>
+      <label for="name">Full name</label><input id="name" name="name" required placeholder="Enter your name">
+      <label for="phone">Phone number</label><input id="phone" name="phone" required type="tel" pattern="[0-9+() -]{7,20}" placeholder="Enter your phone number">
+      <label for="course">Course of interest</label><select id="course" name="course"><option value="">--SELECT--</option><option>O-LEVEL</option><option>DMCA/ACMCA</option><option>TALLY</option><option>Computer Applications</option><option>Web Designing</option><option>Tally & Accounting</option><option>Vocational Skills</option><option>Other / Need guidance</option></select>
+      <label for="message">Your message</label><textarea id="message" name="message" placeholder="What would you like to know?"></textarea>
+      <button class="btn" type="submit">Prepare Enquiry</button><p id="form-note" aria-live="polite" style="font-size:13px;color:var(--muted)"></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div><h3>SIVT BANGANA</h3><p>Shivam Institute for Vocational Training<br>Bangana, Una, Himachal Pradesh</p><p>Learn • Skill • Build Your Future</p></div>
+    <div><h3>Quick Links</h3><p><a href="#about">About Us</a><br><a href="#courses">Courses</a><br><a href="#notice-board">Notice Board</a><br><a href="#faculty">Faculty</a><br><a href="#gallery">Gallery</a><br><a href="#admissions">Admissions</a></p></div>
+    <div><h3>Get in Touch</h3><p>Use the enquiry form or chat assistant to ask about courses and admissions.</p></div>
+  </div>
+  <div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3397.201139993223!2d76.34207097470131!3d31.62834274180125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391b29bfe44f959d%3A0xd1ada35e8abeaf04!2sSIVT%20BANGANA%20(Nielit%20'O'%20Level%20%26%20C-DAC)!5e0!3m2!1sen!2sin!4v1792141785994!5m2!1sen!2sin" width="1200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+  <div class="copyright"><Center>© <span id="year"></span> SIVT Bangana. All rights reserved.</Center></div>
+</footer>
+
+<!-- CHAT ASSISTANT -->
+<div id="chatbox" role="dialog" aria-label="SIVT chat assistant">
+  <div class="chat-head"><div><strong>🤖 SIVT Chat Assistant</strong><small>Website helper • Automated replies</small></div><div class="chat-actions"><button id="chat-clear" type="button" title="Clear chat">🗑</button><button id="chat-close" type="button" title="Close chat">×</button></div></div>
+  <div id="chat-messages" aria-live="polite"><div class="msg bot">NAMASTE! 👏 Welcome to SIVT Bangana. How can I help you today?</div><div class="quick"><button type="button" data-question="courses">Course information</button><button type="button" data-question="admission">Admission process</button><button type="button" data-question="fees">Fees & documents</button><button type="button" data-question="contact">Contact information</button><button type="button" data-question="notice">Latest notices</button></div></div>
+  <form class="chat-input" id="chat-form"><input id="chat-input" aria-label="Your message" placeholder="Type your message..." autocomplete="off" required><button aria-label="Send message">➤</button></form>
+</div>
+<button id="chat-toggle" type="button" aria-label="Open chat assistant" title="Chat with SIVT">💬</button>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Gallery image preview"><button id="lightbox-close" type="button" aria-label="Close image preview">×</button><img id="lightbox-image" src="" alt="Expanded gallery image"></div>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* AUTOMATIC HERO SLIDER */
+const slides = [...document.querySelectorAll('.hero-slide')];
+const dotsWrap = document.getElementById('slider-dots');
+let slideIndex = 0, slideTimer;
+slides.forEach((slide,i)=>{const dot=document.createElement('button');dot.type='button';dot.setAttribute('aria-label','Show slide '+(i+1));dot.addEventListener('click',()=>showSlide(i));dotsWrap.appendChild(dot)});
+const dots=[...dotsWrap.querySelectorAll('button')];
+function showSlide(i){slideIndex=(i+slides.length)%slides.length;slides.forEach((s,n)=>s.classList.toggle('active',n===slideIndex));dots.forEach((d,n)=>d.classList.toggle('active',n===slideIndex));restartSlider()}
+function restartSlider(){clearInterval(slideTimer);slideTimer=setInterval(()=>showSlide(slideIndex+1),4500)}
+document.getElementById('prev-slide').addEventListener('click',()=>showSlide(slideIndex-1));
+document.getElementById('next-slide').addEventListener('click',()=>showSlide(slideIndex+1));
+showSlide(0);
+document.querySelector('.hero').addEventListener('mouseenter',()=>clearInterval(slideTimer));
+document.querySelector('.hero').addEventListener('mouseleave',restartSlider);
+
+/* GALLERY LIGHTBOX */
+const lightbox=document.getElementById('lightbox'),lightboxImage=document.getElementById('lightbox-image');
+document.querySelectorAll('.gallery-item').forEach(item=>item.addEventListener('click',()=>{const image=item.querySelector('img');lightboxImage.src=image.currentSrc||image.src;lightboxImage.alt=image.alt;lightbox.classList.add('open');document.body.style.overflow='hidden'}));
+function closeLightbox(){lightbox.classList.remove('open');lightboxImage.src='';document.body.style.overflow=''}
+document.getElementById('lightbox-close').addEventListener('click',closeLightbox);
+lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox()});
+
+/* CHATBOT */
+const chatbox=document.getElementById('chatbox'),toggle=document.getElementById('chat-toggle'),messages=document.getElementById('chat-messages');
+toggle.addEventListener('click',()=>{chatbox.style.display='flex';toggle.style.display='none';document.getElementById('chat-input').focus()});
+function closeChat(){chatbox.style.display='none';toggle.style.display='block'}
+document.getElementById('chat-close').addEventListener('click',closeChat);
+function addMessage(text,who){const div=document.createElement('div');div.className='msg '+who;div.textContent=text;messages.appendChild(div);messages.scrollTop=messages.scrollHeight}
+function answer(question){
+ const q=question.toLowerCase();
+ if(q.includes('notice')||q.includes('announcement'))return 'Scroll to the Notice & Announcements section on this website to see published notices. Please confirm important dates directly with the institute.';
+ if(q.includes('course')||q.includes('class')||q.includes('training'))return 'Our website lists Computer Applications, Web Designing, Tally & Accounting, and Vocational Skills as example course areas. Please contact the institute to confirm availability.';
+ if(q.includes('admission')||q.includes('join')||q.includes('apply'))return 'Please submit the admission enquiry form and ask the institute about current batches, eligibility and admission dates.';
+ if(q.includes('fee')||q.includes('document')||q.includes('cost'))return 'Fees and required documents may vary by course. Please confirm the latest details directly with SIVT Bangana.';
+ if(q.includes('contact')||q.includes('phone')||q.includes('email')||q.includes('address')||q.includes('location'))return 'SIVT Bangana, Bangana, District Una, Himachal Pradesh. Phone: 9015403094, 9857247005. Email: sivtbangana@gmail.com.';
+ if(q.includes('hello')||q.includes('hi')||q.includes('namaste'))return 'Namaste! 👋 Ask me about courses, admission, fees, notices or contact information.';
+ if(q.includes('thank'))return 'You are welcome! 😊 Let us know if you have another question.';
+ return 'Thanks for your question! I am an automated website helper. Please use the Contact & Enquiry form for details that need confirmation.';
+}
+function sendMessage(question){question=question.trim();if(!question)return;addMessage(question,'user');addMessage(answer(question),'bot')}
+document.getElementById('chat-form').addEventListener('submit',e=>{e.preventDefault();const input=document.getElementById('chat-input');sendMessage(input.value);input.value='';input.focus()});
+document.querySelectorAll('[data-question]').forEach(button=>button.addEventListener('click',()=>sendMessage(button.dataset.question)));
+document.getElementById('chat-clear').addEventListener('click',()=>{messages.innerHTML='';addMessage('Chat cleared. Hello again! 👋 How can I help you today?','bot')});
+
+/* COURSE LINKS PRESELECT COURSE */
+document.querySelectorAll('[data-course]').forEach(link=>link.addEventListener('click',()=>{const select=document.getElementById('course');const option=[...select.options].find(o=>o.value===link.dataset.course||o.text===link.dataset.course);if(option)select.value=option.value}));
+
+
+
+
+/* SIVT BANGANA - GOOGLE SHEET ENQUIRY */
+
+const scriptURL = "https://script.google.com/macros/s/AKfycbybdWCbmTJeL5CjCQ__62qN_iYBZ2-0sdGuh5WAto63_XSpmRvMiOeHD8nIXmIDumZY/exec";
+
+document.getElementById('enquiry-form').addEventListener('submit', async function(e) {
+
+    e.preventDefault();
+
+    const form = this;
+    const note = document.getElementById('form-note');
+    const button = form.querySelector('button[type="submit"]');
+
+    button.disabled = true;
+    button.textContent = "Submitting...";
+
+    const data = new URLSearchParams(new FormData(form));
+
+    try {
+
+        await fetch(scriptURL, {
+            method: "POST",
+            body: data,
+            mode: "no-cors"
+        });
+
+        note.textContent =
+        "Thank you! Your enquiry has been submitted to SIVT Bangana.";
+
+        form.reset();
+
+    } catch (error) {
+
+        note.textContent =
+        "Submission failed! Please try again.";
+
+        console.error(error);
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = "Prepare Enquiry";
+    }
+
+});
+
+
+/* NOTICE BOARD: BROWSER-LOCAL DEMO */
+(()=>{
+ const KEY='sivt_bangana_notices_v1';
+ const list=document.getElementById('notice-list'),ticker=document.getElementById('notice-ticker-content'),form=document.getElementById('notice-form'),adminList=document.getElementById('notice-admin-list'),status=document.getElementById('notice-status'),dateInput=document.getElementById('notice-date');
+ const now=new Date(),today=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');
+ dateInput.value=today;
+ const samples=[
+  {id:'sample-welcome',title:'Welcome to SIVT Bangana',category:'General',message:'Welcome to the official website of Shivam Institute for Vocational Training.',date:today,created:Date.now()},
+  {id:'sample-admission',title:'Admission Information',category:'Admission',message:'Contact the institute to confirm current batches, course availability and fees.',date:today,created:Date.now()-1000}
+ ];
+ function read(){
+  try{const saved=localStorage.getItem(KEY);if(saved===null)return samples.slice();const parsed=JSON.parse(saved);if(!Array.isArray(parsed))return samples.slice();return parsed.filter(n=>n&&typeof n.id==='string'&&typeof n.title==='string'&&typeof n.message==='string'&&typeof n.date==='string'&&['Admission','Examination','Holiday','Result','General'].includes(n.category))}
+  catch(e){status.textContent='Browser storage unavailable. Notices may not be saved.';return samples.slice()}
+ }
+ let notices=read();
+ function save(){try{localStorage.setItem(KEY,JSON.stringify(notices));return true}catch(e){status.textContent='Unable to save notices in this browser. Check browser storage settings.';return false}}
+ function el(tag,cls,txt){const node=document.createElement(tag);if(cls)node.className=cls;if(txt!==undefined)node.textContent=txt;return node}
+ function fmt(s){const p=s.split('-').map(Number);if(p.length!==3||p.some(n=>!n))return s;return new Date(p[0],p[1]-1,p[2]).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})}
+ function render(){
+  const sorted=[...notices].sort((a,b)=>b.date.localeCompare(a.date)||(b.created||0)-(a.created||0));
+  list.replaceChildren();ticker.replaceChildren();adminList.replaceChildren();
+  if(!sorted.length){list.appendChild(el('div','notice-empty','No notices published yet.'));ticker.appendChild(el('span','','No new notices at the moment.'));adminList.appendChild(el('p','notice-admin-note','No notices available.'));return}
+  sorted.forEach(n=>{
+   const item=el('article','notice-item'),date=el('div','notice-date'),parts=n.date.split('-');
+   date.appendChild(el('strong','',parts[2]||'--'));date.appendChild(el('span','',fmt(n.date).split(' ')[1]||''));
+   const body=el('div'),meta=el('div','notice-meta');meta.appendChild(el('span','notice-category',n.category));meta.appendChild(document.createTextNode('Published: '+fmt(n.date)));
+   body.append(meta,el('h4','',n.title),el('p','',n.message));item.append(date,body);list.appendChild(item);
+   const link=el('a','',n.title);link.href='#notice-board';ticker.appendChild(link);
+   const row=el('div','notice-admin-row');row.appendChild(el('span','',n.category+' — '+n.title));
+   const del=el('button','notice-delete','Delete');del.type='button';del.setAttribute('aria-label','Delete notice: '+n.title);
+   del.addEventListener('click',()=>{if(!confirm('Delete this notice?'))return;const previous=notices;notices=notices.filter(x=>x.id!==n.id);if(save()){status.textContent='Notice deleted successfully.';render()}else{notices=previous;render()}});
+   row.appendChild(del);adminList.appendChild(row)
+  });
+  if(sorted.length>1)sorted.forEach(n=>{const link=el('a','',n.title);link.href='#notice-board';ticker.appendChild(link)});
+ }
+ form.addEventListener('submit',e=>{
+  e.preventDefault();
+  const title=document.getElementById('notice-title').value.trim(),category=document.getElementById('notice-category').value,message=document.getElementById('notice-message').value.trim(),date=dateInput.value;
+  if(!title||!message||!date){status.textContent='Please fill in all notice details.';return}
+  const n={id:'notice-'+Date.now()+'-'+Math.random().toString(36).slice(2,8),title,category,message,date,created:Date.now()};
+  notices.unshift(n);
+  if(!save()){notices.shift();return}
+  render();form.reset();dateInput.value=today;status.textContent='Notice published and saved in this browser.';
+ });
+ render();
+})();
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeLightbox();closeChat()}});
+</script>
+</body>
+</html>
+
